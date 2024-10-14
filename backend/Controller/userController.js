@@ -5,10 +5,10 @@ const ErrorResponse = require('../Utils/errorResponse');
 
 
 const signUp = async(req,res) => {
-    const {name, email, password} = req.body;
+    const {name, email, password, role} = req.body;
 
     try {
-        const user = new User({name, email, password});
+        const user = new User({name, email, password, role});
         await user.save();
         res.status(201).json({message: 'User Created successfully'})
     } catch (error) {

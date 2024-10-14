@@ -2,10 +2,14 @@ import React, { useEffect, useState } from 'react';
 import Loading from '../../components/Loading';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { useUserContext } from '../../context/UserContext';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 const FreshRecords = () => {
   const [loading, setLoading] = useState(true);
   const [milkEntries, setMilkEntries] = useState([]);
+  const { user } = useUserContext();
 
   const fetchMilkEntries = async () => {
     try {
@@ -27,6 +31,42 @@ const FreshRecords = () => {
     }
   };
   
+  const handleDownloadPDF = () => {
+    const doc = new jsPDF();
+
+    doc.text('Fresh Milk Records', 14,16);
+
+    const tableColumn = [
+      "Date", 
+      "Supply (Litres)", 
+      "Price", 
+      "Total Cost", 
+      "Litres Sold", 
+      "Cost Per Litre", 
+      "Amount", 
+      "Remarks"
+    ];
+
+    const tableRows = milkEntries.map(entry => ([
+      new Date(entry.date).toLocaleDateString(),
+      entry.supply,
+      entry.price,
+      entry.totalCost,
+      entry.litresSold,
+      entry.litreCost,
+      entry.amount,
+      entry.remarks
+    ]));
+
+
+    doc.autoTable({
+      head: [tableColumn],
+      body: tableRows,
+      startY: 22
+    });
+
+    doc.save('fresh_milk_records.pdf');
+  }
 
   useEffect(() => {
     fetchMilkEntries();
@@ -45,6 +85,17 @@ const FreshRecords = () => {
       ) : (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold mb-4 text-gray-800">Fresh Milk Records</h2>
+
+          { user?.role === 'admin' && (
+            <>
+            <button
+            onClick={handleDownloadPDF}
+            className="mb-4 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+          >
+            Download PDF
+          </button>
+            </>
+          )}
           <div className="overflow-x-auto">
             <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
               <thead className="bg-gray-50 border-b">
@@ -77,10 +128,15 @@ const FreshRecords = () => {
                         <Link to={`/dashboard/updatefresh/${entry._id}`} className="text-blue-600 hover:text-blue-900">
                         Update
                         </Link>{' '}
-                        |{' '}
-                        <button onClick={ () => handleDelete(entry._id)} className="text-red-600 hover:text-red-900">
+                      {/* Show Delete button only if user is an admin */}
+                      {user?.role === 'admin' && (
+                        <>
+                          |{' '}
+                          <button onClick={() => handleDelete(entry._id)} className="text-red-600 hover:text-red-900">
                             Delete
-                        </button>
+                          </button>
+                        </>
+                      )}
                     </td>
                   </tr>
                 ))}
