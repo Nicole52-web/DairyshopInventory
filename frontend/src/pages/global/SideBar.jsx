@@ -63,7 +63,7 @@ const SideBar = () => {
         </li>
         <li>
           <NavLink
-            to="/dashboard/records"
+            to="/dashboard/dailyrecords"
             className={({ isActive }) =>
               isActive
                 ? 'flex items-center space-x-4 p-3 rounded-lg bg-white text-blue-600'
@@ -71,12 +71,25 @@ const SideBar = () => {
             }
           >
             <FaBook className="text-yellow-400" />
-            <span className="text-lg">Daily Records Entry</span>
+            <span className="text-lg">Daily Reports Entry</span>
           </NavLink>
         </li>
         <li>
           <NavLink
-            to="/dashboard/debts"
+            to="/dashboard/dailyreportrecords"
+            className={({ isActive }) =>
+              isActive
+                ? 'flex items-center space-x-4 p-3 rounded-lg bg-white text-blue-600'
+                : 'flex items-center space-x-4 p-3 rounded-lg hover:bg-blue-500 transition-all duration-300'
+            }
+          >
+            <LiaClipboardListSolid className="text-yellow-400" />
+            <span className="text-lg">Daily Reports Records</span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/dashboard/expenses"
             className={({ isActive }) =>
               isActive
                 ? 'flex items-center space-x-4 p-3 rounded-lg bg-white text-blue-600'
@@ -84,7 +97,7 @@ const SideBar = () => {
             }
           >
             <FaMoneyBillWave className="text-red-400" />
-            <span className="text-lg">Debts</span>
+            <span className="text-lg">Debts and Expenses</span>
           </NavLink>
         </li>
       </ul>
