@@ -46,7 +46,7 @@ const Mursik = () => {
   
       try {
         await axios.post('http://localhost:8000/api/mursik/create', dataToSend);
-        alert('Fresh Milk entry created successfully!');
+        alert('Mursik entry created successfully!');
   
   
         //clear form after successful submission
@@ -60,8 +60,8 @@ const Mursik = () => {
           remarks: ''
         })
       } catch (error) {
-        console.error('Error creating Fresh Milk entry', error);
-        alert('Error creating Fresh Milk entry.');
+        console.error('Error creating Mursik entry', error);
+        alert('Error creating Mursik entry.');
       }
     }
   

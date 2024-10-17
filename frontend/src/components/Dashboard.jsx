@@ -12,6 +12,7 @@ import DailyRecords from '../pages/Dashboard/DailyRecords';
 import DailyReportsRecords from '../pages/Dashboard/DailyReportsRecords';
 import UpdateDailyReportRecord from '../pages/Dashboard/UpdateDailyReportRecord';
 
+
 const Dashboard = () => {
   return (
     <Layout>
@@ -28,6 +29,7 @@ const Dashboard = () => {
         <Route path="/dailyrecords" element={<DailyRecords />} />
         <Route path="/dailyreportrecords" element={<DailyReportsRecords />} />
         <Route path="/updatedailyreport/:id" element={<UpdateDailyReportRecord />} />
+
       </Routes>
     </Layout>
   );

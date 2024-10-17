@@ -9,7 +9,8 @@ import 'jspdf-autotable';
 const MursikRecords = () => {
   const [loading, setLoading] = useState(true);
   const [mursikEntries, setMursikEntries] = useState([]);
-
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filterMonth, setFilterMonth] = useState(''); // New state for filtering by month
   const { user } = useUserContext();
 
   const fetchMursikEntries = async () => {
@@ -28,14 +29,13 @@ const MursikRecords = () => {
     }
   };
 
-
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this entry?')) {
         try {
             await axios.delete(`http://localhost:8000/api/mursik/delete/${id}`);
             fetchMursikEntries();
         } catch (error) {
-            console.error('Error deleting entry:', error)
+            console.error('Error deleting entry:', error);
         }
     }
   };
@@ -43,7 +43,7 @@ const MursikRecords = () => {
   const handleDownloadPDF = () => {
     const doc = new jsPDF();
 
-    doc.text('Mursik Records', 14,16);
+    doc.text('Mursik Records', 14, 16);
 
     const tableColumn = [
       "Date", 
@@ -56,7 +56,14 @@ const MursikRecords = () => {
       "Remarks"
     ];
 
-    const tableRows = mursikEntries.map(entry => ([
+    // Filter entries by the selected month
+    const filteredEntries = mursikEntries.filter(entry => {
+      const entryDate = new Date(entry.date);
+      const entryMonth = `${entryDate.getMonth() + 1}/${entryDate.getFullYear()}`; // Format as mm/yyyy
+      return entryMonth === filterMonth;
+    });
+
+    const tableRows = filteredEntries.map(entry => ([
       new Date(entry.date).toLocaleDateString(),
       entry.supply,
       entry.price,
@@ -67,16 +74,27 @@ const MursikRecords = () => {
       entry.remarks
     ]));
 
-
     doc.autoTable({
       head: [tableColumn],
       body: tableRows,
       startY: 22
     });
 
-    doc.save('mursik_records.pdf');
-  }
+    doc.save(`mursik_records_${filterMonth}.pdf`);
+  };
 
+  const filteredReports = searchQuery
+    ? mursikEntries.filter((entry) => {
+        const entryDate = new Date(entry.date);
+        const formattedDate = entryDate.toLocaleDateString();
+        const formattedMonth = `${entryDate.getMonth() + 1}/${entryDate.getFullYear()}`;
+
+        return (
+          formattedDate.includes(searchQuery) ||
+          formattedMonth.includes(searchQuery)
+        );
+      })
+    : mursikEntries; // If there's no search query, display all records
 
   useEffect(() => {
     fetchMursikEntries();
@@ -98,14 +116,32 @@ const MursikRecords = () => {
 
           { user?.role === 'admin' && (
             <>
-            <button
-            onClick={handleDownloadPDF}
-            className="mb-4 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
-          >
-            Download PDF
-          </button>
+           
+
+              <button
+                onClick={handleDownloadPDF}
+                className="mb-4 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+              >
+                Download PDF
+              </button>
             </>
           )}
+
+          <input
+            type="text"
+            placeholder="Search by date (dd/mm/yyyy) or month (mm/yyyy)"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="mb-4 px-4 py-2 border rounded-lg w-full"
+          />
+
+          <input
+                          type="text"
+                          placeholder="Enter month/year (mm/yyyy) for download"
+                          value={filterMonth}
+                          onChange={(e) => setFilterMonth(e.target.value)}
+                          className="mb-4 px-4 py-2 border rounded-lg w-full"
+                        />
 
           <div className="overflow-x-auto">
             <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
@@ -124,7 +160,7 @@ const MursikRecords = () => {
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {mursikEntries.length > 0 ? (
-                  mursikEntries.map((entry) => (
+                  filteredReports.map((entry) => (
                     <tr key={entry._id}>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                         {new Date(entry.date).toLocaleDateString()}
@@ -138,16 +174,16 @@ const MursikRecords = () => {
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{entry.remarks}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                         <Link to={`/dashboard/updatemursik/${entry._id}`} className="text-blue-600 hover:text-blue-900">
-                        Update</Link>{' '}
-                      {/* Show Delete button only if user is an admin */}
-                      {user?.role === 'admin' && (
-                        <>
-                          |{' '}
-                          <button onClick={() => handleDelete(entry._id)} className="text-red-600 hover:text-red-900">
-                            Delete
-                          </button>
-                        </>
-                      )}
+                          Update
+                        </Link>{' '}
+                        {user?.role === 'admin' && (
+                          <>
+                            |{' '}
+                            <button onClick={() => handleDelete(entry._id)} className="text-red-600 hover:text-red-900">
+                              Delete
+                            </button>
+                          </>
+                        )}
                       </td>
                     </tr>
                   ))
