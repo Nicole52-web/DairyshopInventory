@@ -32,6 +32,10 @@ const DailyReportSchema = new mongoose.Schema({
     coins:{
         type: Number,
         required: true
+    },
+    toBank:{
+        type: Number,
+        required: true
     }
 }, {timestamps: true});
 

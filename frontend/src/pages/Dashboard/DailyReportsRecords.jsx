@@ -162,6 +162,9 @@ const DailyReportsRecords = () => {
                     Coins
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    To Bank
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Action
                   </th>
                 </tr>
@@ -179,6 +182,7 @@ const DailyReportsRecords = () => {
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{entry.expenses}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{entry.cash}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{entry.coins}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{entry.toBank}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                       <Link to={`/dashboard/updatedailyreport/${entry._id}`} className="text-blue-600 hover:text-blue-900">
                         Update

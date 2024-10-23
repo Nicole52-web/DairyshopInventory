@@ -4,7 +4,7 @@ const DailyReport = require("../Model/DailyReport");
 
 const createDailyReport = async (req, res) => {
     try {
-        const { date,till, deficit, surplus,sales, expenses, cash, coins} = req.body;
+        const { date,till, deficit, surplus,sales, expenses, cash, coins,toBank} = req.body;
 
 
         const dailyReport = new DailyReport({
@@ -15,7 +15,8 @@ const createDailyReport = async (req, res) => {
             sales,
             expenses,
             cash,
-            coins
+            coins,
+            toBank
         });
 
         await dailyReport.save();
@@ -53,12 +54,12 @@ const getDailyReportById = async (req, res) => {
 const updateDailyReport = async (req, res) => {
     try {
         const { id } = req.params;
-        const { date,till, deficit, surplus,sales, expenses, cash, coins} = req.body;
+        const { date,till, deficit, surplus,sales, expenses, cash, coins, toBank} = req.body;
 
 
         const updatedReport = await DailyReport.findByIdAndUpdate(
             id,
-            {date,till, deficit, surplus,sales, expenses, cash, coins},
+            {date,till, deficit, surplus,sales, expenses, cash, coins, toBank},
             { new: true}
         );
 

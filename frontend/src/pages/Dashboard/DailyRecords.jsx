@@ -12,7 +12,8 @@ const DailyRecords = () => {
     sales: '',
     expenses: '',
     cash: '',
-    coins: ''
+    coins: '',
+    toBank: ''
   })
 
   const handleChange = (e) => {
@@ -28,7 +29,7 @@ const DailyRecords = () => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { date,till,deficit,surplus, sales, expenses, cash, coins}= formData;
+    const { date,till,deficit,surplus, sales, expenses, cash, coins, toBank}= formData;
    
   
     const dataToSend = {
@@ -40,7 +41,8 @@ const DailyRecords = () => {
       sales, 
       expenses, 
       cash, 
-      coins
+      coins,
+      toBank
     };
   
 
@@ -61,7 +63,8 @@ const DailyRecords = () => {
         sales: '',
         expenses: '',
         cash: '',
-        coins: ''
+        coins: '',
+        toBank
       })
     } catch (error) {
       console.error('Error creating Daily Report entry', error);
@@ -178,6 +181,18 @@ const DailyRecords = () => {
           name="coins"
           placeholder="today's coins"
           value={formData.coins}
+          onChange={handleChange}
+          required
+          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        />
+      </div>
+      <div className="mb-4">
+        <label htmlFor="toBank" className="block text-sm font-medium text-gray-700">To Bank</label>
+        <input
+          type='number'
+          name="toBank"
+          placeholder="Cash to bank"
+          value={formData.toBank}
           onChange={handleChange}
           required
           className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
