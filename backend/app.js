@@ -45,7 +45,28 @@ app.use('/api/expenses',ExpensesRouter)
 app.use('/api/dailyreport',DailyreportRouter)
 
 //port
-const port = process.env.PORT || 8000
+const port = process.env.PORT || 
+
+app.get("/", (req, res) => {
+    res.send("Dairy Server is running!");
+});
+// 404 Error handler
+app.use("*", (req, res) => {
+    res.status(404).json({ message: "Not Found" });
+});
+
+// Error Handeling Middleware(default synchronous error handling middleware from express)
+app.use((err, req, res, next) => {
+    if (res.headersSent) {
+        next("There was a problem");
+    } else {
+        if (err.message) {
+            res.status(err.status || 500).send(err.message);
+        } else {
+            res.status(500).send("Something went wrong");
+        }
+    }
+});
 
 app.listen(port, ()=> {
     console.log(`Server running on port ${port}`);
