@@ -49,7 +49,7 @@ const DailyRecords = () => {
     console.log('Sending data to server: ', dataToSend);
 
     try {
-      await axios.post('http://localhost:8000/api/dailyreport/create', dataToSend);
+      await axios.post('https://dairyshop-inventory-api.vercel.app/api/dailyreport/create', dataToSend);
       alert('Dailyreport entry created successfully!');
 
 
