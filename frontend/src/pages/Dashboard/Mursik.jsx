@@ -45,7 +45,7 @@ const Mursik = () => {
       console.log('Sending data to server: ', dataToSend);
   
       try {
-        await axios.post('http://localhost:8000/api/mursik/create', dataToSend);
+        await axios.post('https://dairyshop-inventory-api.vercel.app/api/mursik/create', dataToSend);
         alert('Mursik entry created successfully!');
   
   
