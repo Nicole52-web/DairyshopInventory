@@ -15,7 +15,7 @@ const DailyReportsRecords = () => {
 
   const fetchReportEntries = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/dailyreport/getAll');
+      const response = await axios.get('https://dairyshop-inventory-api.vercel.app/api/dailyreport/getAll');
       setReportEntries(response.data);
     } catch (error) {
       console.error('Error fetching data', error);
@@ -25,7 +25,7 @@ const DailyReportsRecords = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this entry?')) {
       try {
-        await axios.delete(`http://localhost:8000/api/dailyreport/delete/${id}`);
+        await axios.delete(`https://dairyshop-inventory-api.vercel.app/api/dailyreport/delete/${id}`);
         fetchReportEntries();
       } catch (error) {
         console.error('Error deleting entry:', error);
