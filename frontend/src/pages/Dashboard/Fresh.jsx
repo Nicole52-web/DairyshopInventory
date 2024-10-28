@@ -45,7 +45,7 @@ const Fresh = () => {
     console.log('Sending data to server: ', dataToSend);
 
     try {
-      await axios.post('http://localhost:8000/api/fresh/create', dataToSend);
+      await axios.post('https://dairyshop-inventory-api.vercel.app/api/fresh/create', dataToSend);
       alert('Fresh Milk entry created successfully!');
 
 
