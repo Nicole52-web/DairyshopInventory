@@ -26,7 +26,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-        const response = await axios.post('http://localhost:8000/api/user/signin', {
+        const response = await axios.post('https://dairyshop-inventory-api.vercel.app/api/user/signin', {
             email,
             password
         });
