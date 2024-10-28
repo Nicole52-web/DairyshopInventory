@@ -44,8 +44,6 @@ app.use('/api/mursik',MursikRouter)
 app.use('/api/expenses',ExpensesRouter)
 app.use('/api/dailyreport',DailyreportRouter)
 
-//port
-const port = process.env.PORT || 
 
 app.get("/", (req, res) => {
     res.send("Dairy Server is running!");
@@ -68,6 +66,4 @@ app.use((err, req, res, next) => {
     }
 });
 
-app.listen(port, ()=> {
-    console.log(`Server running on port ${port}`);
-});
+module.exports = app;
