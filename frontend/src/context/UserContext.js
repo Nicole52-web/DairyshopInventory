@@ -20,7 +20,7 @@ const UserContext = ({children}) => {
     
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/user/me`,
+          `https://dairyshop-inventory-api.vercel.app/api/user/me`,
           {
             headers: {
               Authorization: `Bearer ${token}`, // Include the token in the Authorization header
