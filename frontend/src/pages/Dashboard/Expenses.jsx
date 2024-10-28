@@ -21,7 +21,7 @@ const Expenses = () => {
 
     const fetchExpenses = async () => {
         try {
-            const response = await axios.get('http://localhost:8000/api/expenses/getAll');
+            const response = await axios.get('https://dairyshop-inventory-api.vercel.app/api/expenses/getAll');
             setExpenses(response.data);
             calculateTotal(response.data)
         } catch (error) {
@@ -32,7 +32,7 @@ const Expenses = () => {
     const handleDelete = async (id) => {
       if (window.confirm('Are you sure you want to delete this entry?')) {
           try {
-              await axios.delete(`http://localhost:8000/api/expenses/delete/${id}`);
+              await axios.delete(`https://dairyshop-inventory-api.vercel.app/api/expenses/delete/${id}`);
               fetchExpenses();
           } catch (error) {
               console.error('Error deleting entry:', error)
@@ -117,7 +117,7 @@ const Expenses = () => {
     
       const handleSaveExpense = async () => {
         try {
-          const response = await axios.post('http://localhost:8000/api/expenses/create', newExpense);
+          const response = await axios.post('https://dairyshop-inventory-api.vercel.app/api/expenses/create', newExpense);
           setExpenses([...expenses, response.data.expenses]);
           calculateTotal([...expenses, response.data.expenses]);
           setIsModalOpen(false);
@@ -152,7 +152,7 @@ const Expenses = () => {
         // console.log("New expense data:", newExpense);
     
         // Send the updated expense to the backend
-        const response = await axios.put(`http://localhost:8000/api/expenses/update/${expenseToUpdate._id}`, newExpense);
+        const response = await axios.put(`https://dairyshop-inventory-api.vercel.app/api/expenses/update/${expenseToUpdate._id}`, newExpense);
     
         // // Log the response to ensure the backend returns the updated data
         // console.log("Backend response:", response.data);
