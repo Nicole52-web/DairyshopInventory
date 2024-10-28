@@ -15,7 +15,7 @@ app.use(cookieParser(process.env.JWT_SECRET));
 app.use(express.json());
 app.use(
     cors({
-        origin: ["http://localhost:3000"],
+        origin: ["https://dairyshop-inventory.vercel.app"],
         methods: ["GET,POST,DELETE,PUT,PATCH"],
         credentials: true,
     })
