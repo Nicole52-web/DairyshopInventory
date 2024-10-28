@@ -12,7 +12,7 @@ const HeaderTop = () => {
   const handleLogout = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/user/logout",
+        "https://dairyshop-inventory-api.vercel.app/api/user/logout",
         {},
         {
           withCredentials: true,  // Ensure cookies are sent with the request
