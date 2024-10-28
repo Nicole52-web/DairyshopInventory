@@ -15,7 +15,7 @@ const MursikRecords = () => {
 
   const fetchMursikEntries = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/mursik/getAll');
+      const response = await axios.get('https://dairyshop-inventory-api.vercel.app/api/mursik/getAll');
       // Ensure the data is an array
       if (Array.isArray(response.data.mursikEntries)) {
         setMursikEntries(response.data.mursikEntries);
@@ -32,7 +32,7 @@ const MursikRecords = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this entry?')) {
         try {
-            await axios.delete(`http://localhost:8000/api/mursik/delete/${id}`);
+            await axios.delete(`https://dairyshop-inventory-api.vercel.app/api/mursik/delete/${id}`);
             fetchMursikEntries();
         } catch (error) {
             console.error('Error deleting entry:', error);
