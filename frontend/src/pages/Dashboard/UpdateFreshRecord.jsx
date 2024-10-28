@@ -19,7 +19,7 @@ const UpdateFreshRecord = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/fresh/${id}`);
+        const response = await axios.get(`https://dairyshop-inventory-api.vercel.app/api/fresh/${id}`);
         setFormData(response.data); // Pre-fill the form with existing data
       } catch (error) {
         console.error('Error fetching entry data', error);
@@ -38,7 +38,7 @@ const UpdateFreshRecord = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:8000/api/fresh/update/${id}`, formData);
+      await axios.put(`https://dairyshop-inventory-api.vercel.app/api/fresh/update/${id}`, formData);
       alert('Entry updated successfully!');
       navigate('/dashboard/freshrecords'); // Redirect back to the records page
     } catch (error) {
