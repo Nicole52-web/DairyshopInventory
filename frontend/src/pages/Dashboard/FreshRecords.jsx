@@ -15,7 +15,7 @@ const FreshRecords = () => {
 
   const fetchMilkEntries = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/fresh/getAll');
+      const response = await axios.get('https://dairyshop-inventory-api.vercel.app/api/fresh/getAll');
       setMilkEntries(response.data);
     } catch (error) {
       console.error('Error fetching data', error);
@@ -25,7 +25,7 @@ const FreshRecords = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this entry?')) {
       try {
-        await axios.delete(`http://localhost:8000/api/fresh/delete/${id}`);
+        await axios.delete(`https://dairyshop-inventory-api.vercel.app/api/fresh/delete/${id}`);
         fetchMilkEntries();
       } catch (error) {
         console.error('Error deleting entry:', error)
