@@ -19,7 +19,7 @@ const UpdateMursikRecord = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/mursik/${id}`);
+        const response = await axios.get(`https://dairyshop-inventory-api.vercel.app/api/mursik/${id}`);
         console.log('Fetched Data: ' ,response.data)
         setFormData(response.data); // Pre-fill the form with existing data
       } catch (error) {
@@ -39,7 +39,7 @@ const UpdateMursikRecord = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:8000/api/mursik/update/${id}`, formData);
+      await axios.put(`https://dairyshop-inventory-api.vercel.app/api/mursik/update/${id}`, formData);
       alert('Entry updated successfully!');
       navigate('/dashboard/freshrecords'); // Redirect back to the records page
     } catch (error) {
