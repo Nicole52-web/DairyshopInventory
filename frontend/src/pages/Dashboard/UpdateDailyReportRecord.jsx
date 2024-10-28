@@ -22,7 +22,7 @@ const UpdateDailyReportRecord = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/dailyreport/${id}`);
+        const response = await axios.get(`https://dairyshop-inventory-api.vercel.app/api/dailyreport/${id}`);
         setFormData(response.data); // Pre-fill the form with existing data
       } catch (error) {
         console.error('Error fetching entry data', error);
@@ -41,7 +41,7 @@ const UpdateDailyReportRecord = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:8000/api/dailyreport/update/${id}`, formData);
+      await axios.put(`https://dairyshop-inventory-api.vercel.app/api/dailyreport/update/${id}`, formData);
       alert('Entry updated successfully!');
       navigate('/dashboard/dailyreportrecords'); // Redirect back to the records page
     } catch (error) {
