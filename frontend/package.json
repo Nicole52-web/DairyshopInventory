@@ -65,4 +65,5 @@
     "postcss": "^8.4.39",
     "tailwindcss": "^3.4.6"
   },
+  "proxy": "https://dairyshop-inventory-api.vercel.app"
 }
