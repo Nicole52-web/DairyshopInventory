@@ -18,6 +18,7 @@ app.use(
         origin: ["https://dairyshop-inventory.vercel.app"],
         methods: ["GET,POST,DELETE,PUT,PATCH"],
         credentials: true,
+        allowedHeaders: ["Content-Type", "Authorization"]
     })
 );
 
